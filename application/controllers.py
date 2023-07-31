@@ -32,7 +32,7 @@ def login():
                 return make_response(jsonify({"email":email,"username":user.username}),200) 
             
                 
-            return make_response(jsonify({"email":email,"username":user.username}),200) 
+            return make_response(jsonify({"email":email,"username":user.username,"user_id":user.id}),200) 
         return make_response(jsonify({"credentials":"invalid"}),401)     
  
 
