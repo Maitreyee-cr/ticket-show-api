@@ -1,0 +1,5 @@
+Flask
+Flask-SQLAlchemy
+Flask-Security-too
+pytz
+Flask-Cors==4.0.0

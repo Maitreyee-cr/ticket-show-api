@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .divide {
+          border-radius: 16px;
+          border: 1px solid red;
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          margin: 20px;
+        }
+        
+        /* Style the text elements */
+        .texts {
+          margin-bottom: 8px;
+        }
+        
+        /* Style the first row */
+        .f-row {
+          display: flex;
+          justify-content: space-between;
+        }
+        
+        /* Style the second row */
+        .s-row {
+          display: flex;
+          justify-content: space-between;
+        }
+        
+                header{
+                    text-align:center;
+                }
+        
+                body{
+                    text-align: center;
+                }
+        
+                .add-btn {
+                  
+  display: grid;
+  place-items: center;
+  background: green;
+  color:white;
+  text-decoration:none;
+  padding:5px;
+  border-radius: 2px;
+}
+                
+        
+                .add-btn:hover {
+                      background-color: #e9ecef;
+                    color: #000000;
+                }
+            </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <a href = "{{url_for('create_venue')}}">+</a>
+    {% for venue in venues %}
+        <div class="divide">
+            <div class="f-row">
+                <div class="texts">{{ venue.name }}</div>
+                <div class="texts">{{ venue.place }}</div>
+                <div class="texts">Capacity: {{ venue.capacity }}</div>
+              </div>
+            <div class="s-row">
+                <a class="add-btn" href="{{url_for('edit_venue',venue_id=venue.id)}}">Edit</a>
+                <a class="add-btn" href="{{url_for('delete_venue',venue_id=venue.id)}}">Delete</a>
+            </div>
+            <a href="{{url_for('create_show',venue_id=venue.id)}}">+</a>
+                {% for show in shows[venue.id-1] %}
+                <div class="f-row">
+                    <div class="texts">{{ show.name }}</div>
+                    <div class="texts">{{ show.ticket_price }}</div>
+                    <div class="texts"> {{ show.startTime }} to {{show.endTime}}</div>
+
+                  </div>
+                  <div class="s-row">
+                    <a href="{{url_for('edit_show',show_id=show.id)}}">Edit</a>
+                    <div class="texts">{{ show.tags }}</div>
+                    <a href="{{url_for('delete_show',show_id=show.id)}}">Delete</a>
+                </div>
+                    {% endfor %}
+        </div>
+    {% endfor %}
+      </class>
+    
+    </body>
+    </html>
