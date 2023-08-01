@@ -90,9 +90,19 @@ def getshow():
 @app.route("/get_single_show/<int:show_id>",methods=['GET'])
 def get_single_show(show_id):
     thisS = show.query.get_or_404(show_id)
+    thiscapacity=0
+    newshow=show.query.filter_by(id=show_id).first()
+    newlist=Venue.query.all()
+    for thisvenue in newlist:
+        if thisvenue.id==newshow.venue_Id:
+            thiscapacity=thisvenue.capacity
+    newbookinglist=booking.query.all()
+    for thisbooking in newbookinglist :
+        if thisbooking.show_id==show_id:
+            thiscapacity-=thisbooking.count
     show_OUT = {"id": thisS.id, "name": thisS.name, "ticket_price": thisS.ticket_price, 
                 "tags": thisS.tags, "start_time": thisS.startTime, 
-                "end_time": thisS.endTime}
+                "end_time": thisS.endTime, "seats_left": thiscapacity}
     return make_response(jsonify(show_OUT))
 
 @app.route("/get_single_venue/<int:venue_id>",methods=['GET'])
