@@ -53,7 +53,7 @@ def userregister():
         # user.set_password(password)
         db.session.add(user)
         db.session.commit()
-        return make_response(jsonify({"email":email,"username":user.username}),200)
+        return make_response(jsonify({"email":email,"username":user.username, "id": user.id}),200)
     
 	
 
