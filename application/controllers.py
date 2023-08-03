@@ -221,7 +221,7 @@ def mybookings(user_id):
         rated = False
         if thisreview > 0:
             rated = True
-        showlist[thisb.id] = {"show": thisS.name, "starting_time": thisS.startTime,
+        showlist[thisb.id] = {"show": thisS.name,"showid":thisS.id, "starting_time": thisS.startTime,
                                "ending_time": thisS.endTime, "ticket_count": thisb.count, 
                                "total_cost": thisb.count * thisS.ticket_price, 
                                "venue": thisvenue.name, "place": thisvenue.place, "israted": rated}
