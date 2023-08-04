@@ -130,11 +130,11 @@ def editVenue(venue_id):
     if "name" in  req:
         thisV.name = req["name"]
     if "place" in req:
-        thisV.address = req["place"]
+        thisV.place = req["place"]
     if "capacity" in req:
         thisV.capacity = req["capacity"]    
     db.session.commit()
-    return make_response(jsonify({"name": thisV.name, "address": thisV.address, 
+    return make_response(jsonify({"name": thisV.name, "place": thisV.place, 
                                   "capacity": thisV.capacity, "id": thisV.id}))
 @app.route("/delete_venue/<int:venue_id>/",methods=["DELETE"])
 def deleteVenue(venue_id):
