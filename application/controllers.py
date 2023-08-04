@@ -82,7 +82,7 @@ def getshow():
        Slist=show.query.filter_by(venue_Id=thisv.id)
        curr_venue = {"id": thisv.id,"name": thisv.name, "capacity": thisv.capacity, "place": thisv.place,"shows": []}
        for thisS in Slist:
-            curr_show = {"id": thisS.id, "name": thisS.name, "ticket_price": thisS.ticket_price, "tags": thisS.tags}
+            curr_show = {"id": thisS.id, "name": thisS.name, "ticket_price": thisS.ticket_price, "tags": thisS.tags, "start_time": thisS.startTime, "end_time": thisS.endTime}
             curr_venue['shows'].append(curr_show)
        vdict.append(curr_venue)
    return make_response(jsonify(vdict), 200)    
