@@ -7,14 +7,14 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from flask_security import Security, SQLAlchemySessionUserDatastore, SQLAlchemyUserDatastore
 from application.models import *
 from flask_login import LoginManager
-from flask_cors import CORS
+# from flask_cors import CORS
 
 
 app = Flask(__name__)
 app.config.from_object(LocalDevelopmentConfig)
 db.init_app(app)
 app.app_context().push()
-CORS(app)
+# CORS(app)
 
 
 # Import all the controllers so they are loaded

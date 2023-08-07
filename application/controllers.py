@@ -260,18 +260,34 @@ def showanalytics(show_id):
                 ratingoutput[ra.rating-1]+=1
         return make_response(jsonify({"reviews":ratingoutput,"showname":rateshow.name}))
 
-@app.route("/search_shows",methods=['GET'])
-def search_shows():
-    seshow=show.query.all()
-    return render_template("search.html",showlist=seshow)     
+
 
 @app.route("/search",methods=['GET','POST'])
 def search():
-    searchtext=request.form['search']
+    req = request.json
+    searchtext=req['search']
     search = "%{}%".format(searchtext)
     showlist = show.query.filter(show.name.like(search)).all()
     showtags = show.query.filter(show.tags.like(search)).all()
-    return render_template("search.html",showlist=showlist,showtags=showtags)
+    output=[]
+    for ts in showlist:
+        temp={
+            'name' : ts.name,
+            'tags': ts.tags,
+            'id' :ts.id,
+            'date': ts.date,
+        }
+        output.append(temp)
+    for ts in showtags:
+        temp={
+            'name' : ts.name,
+            'tags': ts.tags,
+            'id' :ts.id,
+            'date': ts.date,
+        }
+        output.append(temp)    
+    # return render_template("search.html",showlist=showlist,showtags=showtags)
+    return make_response(output)
 
 
 
