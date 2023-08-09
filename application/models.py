@@ -50,6 +50,13 @@ class booking(db.Model):
     show_id=db.Column(db.Integer, nullable=False)
     count=db.Column(db.Integer())
 
+class btime(db.Model):
+    __tablename__='BookingTime'
+    id=db.Column(db.Integer(),primary_key=True)
+    user_id=db.Column(db.Integer, nullable=False)
+    date=db.Column(db.Date)
+    
+
 
 
 

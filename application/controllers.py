@@ -1,6 +1,6 @@
 from flask import Flask, redirect, render_template, request, current_app as app, make_response,jsonify
 from flask_login import login_required, current_user, login_user, logout_user
-from application.models import User, db,Venue,show,Review
+from application.models import User, db,Venue,show,Review,btime
 from application.models import booking
 from datetime import datetime
 @app.route('/admin')
@@ -208,6 +208,10 @@ def booking_post(show_id):
     thisS = show.query.get_or_404(show_id)
     db.session.add(nb)
     db.session.commit()
+    today=datetime.today()
+    n_bt=btime(user_id=int(userid),date=today)
+    db.session.add(n_bt)
+    db.session.commit()
     return make_response(jsonify({"booking_id": nb.id, "tickets_confirmed": nb.count}))
 
 @app.route("/mybookings/<user_id>",methods=["GET"])
@@ -289,6 +293,20 @@ def search():
     # return render_template("search.html",showlist=showlist,showtags=showtags)
     return make_response(output)
 
+@app.route("/reminder_email_list",methods=['GET'])
+def email_list():
+    today=datetime.today()
+    booked_user=btime.query.filter_by(date=today.strftime("%Y-%m-%d"))
+    all_users=User.query.all()
+    output_list=[]
+    for tuser in all_users:
+        flag=False
+        for buser in booked_user:
+            if buser.user_id==tuser.id :
+                flag=True
+        if flag==False :
+            output_list.append(tuser.email)
+    return make_response(output_list)                    
 
 
 
